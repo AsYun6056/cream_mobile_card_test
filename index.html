@@ -236,23 +236,24 @@
                 font-size: 0.75rem;
             }
            .image {
-                width: 100px; /* 🌟 이미지 크기 조정 */
-                height: 100px; /* 동일한 비율 유지 */
+                width: 70px; /* 🌟 이미지 크기 조정 */
+                height: 70px; /* 동일한 비율 유지 */
+                object-fit: cover;
             }
             .details {
                 display: flex;
                 flex-direction: row; /* 🌟 가로 정렬로 변경 */
                 align-items: center; /* 중앙 정렬 */
                 justify-content: space-between; /* 버튼과  이미지를 양 끝에 배치 */
-                gap: 10px; /* 버튼과 이미지 간격 */
+                gap: 8px; /* 버튼과 이미지 간격 */
             }
             .feature span {
                 font-size: 0.875rem; /* 🍊 텍스트 크기 조정 */
                 line-height: 1.4; /* 🍊 줄 간격 축소 */
-                white-space: normal; /* 🍊 줄바꿈 허용 */
+                white-space: nowrap; /* 🌟 줄바꿈 방지 */
             }
             .info {
-                flex: 2; /* 🍊 텍스트 공간 확대 */
+                flex: 3; /* 🍊 텍스트 공간 확대 */
             }
             .button {
                 flex-shrink: 0; /* 🌟 버튼 크기 고정 */
