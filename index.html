@@ -239,16 +239,19 @@
                 font-size: 0.75rem;
             }
            .image {
-                width: 70px; /* 🌟 이미지 크기 조정 */
-                height: 70px; /* 동일한 비율 유지 */
-                object-fit: cover;
+                align-self: flex-end; /* 📍 이미지를 오른쪽 정렬 */
+                margin-top: 16px; /* 📍 이미지 위쪽 여백 추가 */
+                margin-right: 8px; /* 📍 이미지와 카드 끝 간격 조정 */
+                width: 80px; /* 🌟 이미지 크기 조정 */
+                height: 80px; /* 동일한 비율 유지 */
+                object-fit: cover; /* 📍 이미지 비율을 유지하며 조정 */
             }
             .details {
                 display: flex;
-                flex-direction: row; /* 🌟 가로 정렬로 변경 */
-                align-items: center; /* 중앙 정렬 */
+                flex-direction: column; /* 📍 텍스트와 이미지를 세로로 정렬 */
+                align-items: flex-start; /* 📍 텍스트는 왼쪽 정렬 */
                 justify-content: space-between; /* 버튼과  이미지를 양 끝에 배치 */
-                gap: 8px; /* 버튼과 이미지 간격 */
+                gap: 16px; /* 📍 텍스트와 이미지 간격 추가 */
             }
             .feature span {
                 font-size: 0.875rem; /* 🍊 텍스트 크기 조정 */
@@ -411,7 +414,7 @@
                         </div>
                         <div class="feature">
                             <span class="emoji">✅</span>
-                            <span style="color: #4b5563; font-size: 0.875rem;">티트리의 청량감으로 시원 산뜻하게 흡수되는 느낌</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">티트리의 청량감, 시원 산뜻하게 흡수되는 느낌</span>
                         </div>
                         <a href="https://link.coupang.com/a/b78vyd" target="_blank" class="button">구매하기</a>
                     </div>
