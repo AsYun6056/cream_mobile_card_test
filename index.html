@@ -18,9 +18,7 @@
             max-height: 60vh; /* 최대 높이를 뷰포트 높이의 60%로 제한 */
             margin: 0 auto; /* 이미지를 중앙에 정렬 */
             display: block; /* block 요소로 설정해 margin 적용 */
-        }
-        /* 제목 섹션 스타일 */
-        .title-section {
+        }./        .title-section {
             text-align: center;
             margin: 40px auto;
             padding: 0 20px; /* 변경: 모바일에서도 좌우 여백을 조정 */
@@ -222,11 +220,14 @@
                 box-sizing: border-box; /* 🌸 패딩 포함 크기 계산 */
             }
             .card {
-                padding: 16px 6px; /* 🌟 모바일에서 양옆 여백을 6px로 최소화 */
+                padding: 16px 4px; /* 🌟 모바일에서 양옆 여백을 4px로 최소화 */
                 width: calc(100% - 10px); /* 🍑 양옆 여백(5px씩)을 빼고 카드가 화면에 꽉 차도록 설정 */
                 margin: 0 auto 10px; /* 🍑 중앙 정렬 및 아래쪽 여백 추가 */
                 box-sizing: border-box; /* 🍑 내부 패딩 포함 크기 계산 */
             }
+            .content {
+                padding: 8px 8px; /* 상하좌우 여백을 더 줄임 */
+         }
             .header h2 {
                 font-size: 0.875rem;
             }
