@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보습제 추천 리스트 총정리본</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+        }
+        /* 헤더 섹션 스타일 */
+        .header img {
+            max-width: 100%; /* 화면 너비를 초과하지 않도록 제한 */
+            height: auto; /* 비율을 유지하며 크기 조정 */
+            max-height: 60vh; /* 최대 높이를 뷰포트 높이의 60%로 제한 */
+            margin: 0 auto; /* 이미지를 중앙에 정렬 */
+            display: block; /* block 요소로 설정해 margin 적용 */
+        }
+        /* 제목 섹션 스타일 */
+        .title-section {
+            text-align: center;
+            margin: 40px auto;
+            padding: 0 20px; /* 변경: 모바일에서도 좌우 여백을 조정 */
+        }
+        .title-section h1 {
+            font-size: 2rem; /* 제목 크기 설정 */
+            font-weight: bold; /* 굵은 텍스트 */
+            margin: 0 0 40px; /* 제목과 설명 사이 간격 */
+            color: #111827;
+        }
+        .title-section p {
+            font-size: 1rem;
+            color: #4b5563;
+            margin: 0 0 24px; /* 설명과 설명 박스 사이 간격 */
+            line-height: 1.5; /* 읽기 쉽게 줄 간격 조정 */
+            word-break: keep-all; /* 단어가 강제로 분리되지 않도록 설정 */
+        }
+        .title-section p span {
+            font-weight: bold; /* 굵은 폰트 적용 */
+        }
+        /* 참고 박스 스타일 */
+        .description {
+            max-width: 600px; /* 카드와 동일한 가로 길이 */
+            margin: 0 auto 30px; /* 아래 요소와 적절한 간격 추가 */
+            padding: 20px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            color: #4b5563;
+        }
+        .description strong {
+            font-weight: bold;
+        }
+        .description p {
+            margin: 0;
+            line-height: 1.6;
+        }
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px; /* 좌우 여백을 추가하여 정렬 개선 */
+        }
+        .card {
+            background: white;
+            border-radius: 7px;
+            padding: 16px 24px; /* 세로 간격을 줄임 */
+            max-width: 600px; /* 카드와 참고 박스의 가로 길이를 동일하게 유지 */
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 20px; /* 카드 간 여백 추가 */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .content {
+            border: none; /* 회색 배경 제거 */
+            border-radius: 8px;
+            padding: 16px; /* 세로 길이 축소 */
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* 세로 가운데 정렬 */
+            margin-bottom: 12px; /* 간격 조정 */
+        }
+        /* 제품 점수 표시 동그라미 */
+        .score {
+            width: 50px;
+            height: 50px; /* 동그라미 크기 축소 */
+            border-radius: 50%;
+            background: #dcfce7;
+            color: #16a34a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.15rem; /* 폰트 크기 조정 */
+        }
+        .details {
+            display: flex;
+            gap: 32px;
+        }
+        .info {
+            flex: 1;
+        }
+        .feature {
+            display: flex;
+            align-items: start;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+        .note {
+            margin-top: 16px;
+            color: #6b7280;
+            font-size: 0.875rem;
+            text-align: center;
+        }
+        .image {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 10px 20px;
+            background-color: #60a5fa;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: bold;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #3b82f6;
+        }
+        /* 카테고리 구분선 스타일 추가 */
+        .category {
+            text-align: left;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border-radius: 8px; /* 둥근 모서리 */
+        }
+        /* 첫 번째 카테고리 - 연한 초록색 */
+        .category.green {
+            background: #e7f3e6; /* 연한 초록색 */
+        }
+
+         /* 두 번째 카테고리 - 연한 하늘색 */
+        .category.blue {
+             background: #e7f0fa; /* 연한 하늘색 */
+        }
+
+        .category h2 {
+            font-size: 1.25rem;
+            color: #111827;
+            margin: 0;
+        }
+
+        /* 반응형 디자인 추가 */
+        /* 노트북 환경에서 헤더 이미지 크기 줄이기 */
+        @media (min-width: 1024px) and (max-width: 1366px) {
+            .header img {
+                max-width: 80%; /* 모바일에서 헤더 이미지를 꽉 채움 */
+                margin: 0 auto; /* 이미지를 중앙 정렬 */
+                display: block; /* 중앙 정렬 적용을 위해 block 설정 */
+            }
+        }            
+        @media (max-width: 768px) {
+            .header img {
+                width: 100vw; /* 🌞 뷰포트의 너비를 기준으로 100% 채움 */
+                height: auto; /* 비율 유지 */
+                margin: 0; /* 여백 제거 */
+                display: block; /* 🌞 중앙 정렬을 유지 */
+            }
+            /* 제목 섹션에서 좌우 여백 추가 */
+            .title-section, /* 제목 섹션 */
+            .description, /* 설명 박스 */
+            .list { /* 카드 목록 */
+                padding: 0 16px; /* 모바일에서 좌우 여백을 줄여 화면 폭에 맞춤 */
+            }
+            /* 모바일에서 제목 섹션의 텍스트 크기 조정 */
+            .title-section h1 {
+                font-size: 1.5rem;
+            }
+            .title-section p {
+                font-size: 0.9rem; /* 모바일에서 폰트 크기 축소 */
+                line-height: 1.4; /* 줄 간격 축소 */
+                white-space: normal; /* 텍스트가 자연스럽게 줄바꿈되도록 설정 */
+                word-break: break-word; /* 단어를 필요하면 나눔 */
+
+            }
+            /* 줄바꿈 태그 숨기기 */
+            .title-section p br {
+                display: none; /* 모바일에서 강제 줄바꿈 제거 */
+            }
+            /* 모바일에서 설명 박스 여백 줄임 */
+            .description {
+                padding: 10px 10px; /* 🍑 모바일에서 양옆 10px, 위아래 10px 설정 */
+                margin: 0 10px; /* 🍑 양옆 10px의 외부 여백 설정 */
+                box-sizing: border-box; /* 🍑 패딩 포함 크기 계산 */
+
+            }
+            /* 카드 목록의 폭 조정 */
+            .list {
+                padding: 0 5px; /* 좌우 동일하게 16px 여백  */
+                box-sizing: border-box; /* 🌸 패딩 포함 크기 계산 */
+            }
+            .card {
+                padding: 16px 6px; /* 🌟 모바일에서 양옆 여백을 6px로 최소화 */
+                width: calc(100% - 10px); /* 🍑 양옆 여백(5px씩)을 빼고 카드가 화면에 꽉 차도록 설정 */
+                margin: 0 auto 10px; /* 🍑 중앙 정렬 및 아래쪽 여백 추가 */
+                box-sizing: border-box; /* 🍑 내부 패딩 포함 크기 계산 */
+            }
+            .header h2 {
+                font-size: 0.875rem;
+            }
+            .score {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+            }
+            .image {
+                width: 100px; /* 🌟 이미지 크기 조정 */
+                height: 100px; /* 동일한 비율 유지 */
+                object-fit: cover; /* 비율 유지하며 이미지 크기 조정 */
+                border-radius: 8px; /* 둥근 모서리 유지 */
+            }
+            .details {
+                display: flex;
+                flex-direction: row; /* 🌟 가로 정렬로 변경 */
+                align-items: center; /* 중앙 정렬 */
+                justify-content: space-between; /* 버튼과 이미지를 양 끝에 배치 */
+                gap: 10px; /* 버튼과 이미지 간격 */
+            }
+            .button {
+                flex-shrink: 0; /* 🌟 버튼 크기 고정 */
+                margin-top: 0; /* 버튼의 기본 위쪽 여백 제거 */
+                margin-bottom: 0; /* 하단 여백 제거 */
+                align-self: flex-start; /* 🌟 왼쪽 상단에 정렬 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 섹션 -->
+    <div class="header">
+        <img src="./header-image.jpg" alt="Header Image">
+    </div>
+
+    <!-- 제목 섹션 -->
+    <div class="title-section">
+        <h1>🧴 보습제 추천 리스트 총정리본</h1>
+        <p>
+            * 제품 사진 아래의 링크 통해 상품을 구입하시면 쿠팡파트너스의 일환으로<br>
+            소정의 수수료를 받게되어 <span>에즈윤 채널 운영에 큰 도움이 됩니다 :)</span>
+        </p>
+    </div>
+
+    <!-- 참고 박스 -->
+    <div class="description">
+        <p><strong>💡 700개 이상의 보습제를 직접 정보 다 찾아보고,</strong></p>
+        <p><strong>말라세지아 모낭염 유발 성분까지 싹 ~~ 비교 분석해 찾은 !!</strong></p>
+        <p><strong>“저자극 보습제 제품들” 소개해드릴게요 ✨</strong></p>
+    </div>
+    <!--  카테고리: 더마 크림 -->
+    <div class="category green">
+        <h2>1. 더마 크림</h2>
+    </div>
+
+<!-- 💡 첫 번째 카드 리스트 / 더마크림 -->
+<div class="list">
+    <!-- 첫 번째 카드 유리아쥬 -->
+    <div class="card">
+       <div class="content">
+           <div class="header">
+               <div>
+                   <h2 style="margin: 0; font-size: 1.125rem;">유리아쥬 배리어덤 시카 데일리 젤크림</h2>
+                   <p style="color: #4b5563; font-size: 0.875rem; margin-top: 4px;">
+                       말라세지아 유발 성분: 없음
+                   </p>
+               </div>
+               <div class="score" style="background: #dcfce7; color: #16a34a;">0</div>
+           </div>
+           <div class="details">
+               <div class="info">
+                   <div class="feature">
+                       <span class="emoji">✅</span>
+                       <span style="color: #4b5563; font-size: 0.875rem;">
+                           병풀잎추출물 + 비타민 B5 → 빠른 진정
+                       </span>
+                   </div>
+                   <div class="feature">
+                       <span class="emoji">✅</span>
+                       <span style="color: #4b5563; font-size: 0.875rem;">
+                           히알루론산 + 유리아쥬 온천수 → 촉촉 피부 장벽
+                       </span>
+                   </div>
+                   <div class="feature">
+                       <span class="emoji">✅</span>
+                       <span style="color: #4b5563; font-size: 0.875rem;">
+                           빠르게 흡수되는 부드럽고 묽은 제형
+                       </span>
+                   </div>
+                   <a href="https://link.coupang.com/a/b752D3" target="_blank" class="button">구매하기</a>
+               </div>
+               <div>
+                   <img src="./uriage.png" alt="유리아쥬 배리어덤 시카 데일리 젤크림" class="image">
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <!-- 💡 두 번째 카드: 닥터디퍼런트 시카 메탈 퀵 수딩 크림 -->
+   <div class="card">
+       <div class="content">
+           <div class="header">
+               <div>
+                   <h2 style="margin: 0; font-size: 1.125rem;">닥터디퍼런트 시카 메탈 퀵 수딩 크림</h2>
+                   <p style="color: #4b5563; font-size: 0.875rem; margin-top: 4px;">
+                       말라세지아 유발 성분: 1개 → 
+                       <a href="https://kcia.or.kr/pedia/search/search_01_view.php?no=177" 
+                          style="text-decoration: underline; color: #374151;" target="_blank">
+                           폴리글리세릴-10올리에이트
+                       </a>
+                   </p>
+               </div>
+               <div class="score" style="background: #fef9c3; color: #ca8a04;">1</div>
+           </div>
+           <div class="details">
+               <div class="info">
+                   <div class="feature">
+                       <span class="emoji">✅</span>
+                       <span style="color: #4b5563; font-size: 0.875rem;">
+                           고품질, 유효 농도의 시카 마데카소사이드 함유! → 빠른 진정
+                       </span>
+                   </div>
+                   <div class="feature">
+                       <span class="emoji">✅</span>
+                       <span style="color: #4b5563; font-size: 0.875rem;">
+                           고분자 ~ 저분자 다양한 크기의 8종 히알루론산 → 수분 충전
+                       </span>
+                   </div>
+                   <div class="feature">
+                       <span class="emoji">✅</span>
+                       <span style="color: #4b5563; font-size: 0.875rem;">
+                           산뜻한 쿨링의 수분 가득 수딩 텍스처
+                       </span>
+                   </div>
+                   <a href="https://link.coupang.com/a/b76gMl" target="_blank" class="button">구매하기</a>
+               </div>
+               <div>
+                   <img src="./drdifferent.png" alt="닥터디퍼런트 시카 메탈 퀵 수딩 크림" class="image">
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+    <!-- 카테고리: 국내 브랜드 -->
+    <div class="category blue">
+        <h2>2. 국내 브랜드</h2>
+    </div>
+
+    <!-- 두번째 카드 섹션 -->
+    <div class="list">
+        <!-- 첫 번째 카드 -->
+        <div class="card">
+            <div class="content">
+                <div class="header">
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.125rem;">에센허브 티트리 수딩 인 카밍 크림</h2>
+                        <p style="color: #4b5563; font-size: 0.875rem; margin-top: 4px;">말라세지아 유발 성분: 0개</p>
+                    </div>
+                    <div class="score">0</div>
+                </div>
+                <div class="details">
+                    <div class="info">
+                        <div class="feature">
+                            <span class="emoji">✅</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">저온에서 오랜 시간 들여 진하게 추출한 티트리</span>
+                        </div>
+                        <div class="feature">
+                            <span class="emoji">✅</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">마냥 가볍지 않고 수분감이 탱글탱글한 크림 제형</span>
+                        </div>
+                        <div class="feature">
+                            <span class="emoji">✅</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">티트리의 청량감으로 시원하게, 산뜻하게 흡수되는 느낌</span>
+                        </div>
+                        <a href="https://link.coupang.com/a/b78vyd" target="_blank" class="button">구매하기</a>
+                    </div>
+                    <div>
+                        <img src="./herb.png" alt="에센허브 티트리 크림" class="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 두 번째 카드 -->
+        <div class="card">
+            <div class="content">
+                <div class="header">
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.125rem;">싸이닉 더 심플 릴리프 수분크림</h2>
+                        <p style="color: #4b5563; font-size: 0.875rem; margin-top: 4px;">
+                            말라세지아 유발 성분: 1개 → 
+                            <a href="https://kcia.or.kr/pedia/search/search_01_view.php?no=177" 
+                               style="text-decoration: underline; color: #374151;" target="_blank">
+                                솔비탄아이소스테아레이트
+                            </a>
+                        </p>
+                    </div>
+                    <div class="score" style="background: #fef9c3; color: #ca8a04;">1</div>
+                </div>
+                <div class="details">
+                    <div class="info">
+                        <div class="feature">
+                            <span class="emoji">✅</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">전성분 23개로 심플한 편!</span>
+                        </div>
+                        <div class="feature">
+                            <span class="emoji">✅</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">수분에 초점을 둔 약산성 마일드 수분크림</span>
+                        </div>
+                        <div class="feature">
+                            <span class="emoji">✅</span>
+                            <span style="color: #4b5563; font-size: 0.875rem;">덧바르기 좋은 라이트한 젤 타입 텍스처</span>
+                        </div>
+                        <a href="https://link.coupang.com/a/b78vyd" target="_blank" class="button">구매하기</a>
+                    </div>
+                    <div>
+                        <img src="./thesimple.png" alt="싸이닉 더 심플 릴리프 수분크림" class="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 추가 정보 -->
+    <p class="note">
+        말라세지아 유발 성분 기준: 0개 최상(녹색), 2-3개 양호(녹색), 4-5개 주의(주황색), 6-8개 경계(노란색), 9개 이상 위험(빨간색)
+    </p>
+</body>
+</html>
